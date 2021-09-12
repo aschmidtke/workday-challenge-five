@@ -9,7 +9,7 @@ $(document).ready(function () {
         var textInput = $(this).siblings(".description").val();
         var timeStamp = $(this).parent().attr("id");
 
-        schedules.push({ description: textInput, time: timeStamp});
+        schedules.push({description: textInput, time: timeStamp});
 
        // saves to local storage 
         localStorage.setItem("schedules", JSON.stringify(schedules));
@@ -20,18 +20,20 @@ $(document).ready(function () {
         var currentTime = moment().hours();
 
         $(".time-block").each(function () {
-            var scheduleHour = parseInt($(this).attr("id").split("-"[1]));
+            var scheduleHour = parseInt($(this).attr("id").split("-")[1]);
 
-            if (moment(currentTime).isAfter(scheduleHour, "hour")) {
+            console.log(scheduleHour);
+
+            if (currentTime > scheduleHour) {
                 $(this).removeClass("future present"); 
                 $(this).addClass("past");
             }
 
-            else if (moment(currentTime).isSame(scheduleHour, "hour")) {
+            else if (currentTime === scheduleHour) {
                 $(this).removeClass("past future");
                 $(this).addClass("present");
             }
-            else {
+            else if (currentTime < scheduleHour) {
                 $(this).removeClass("past");
                 $(this).removeClass("present");
                 $(this).addClass("future");
