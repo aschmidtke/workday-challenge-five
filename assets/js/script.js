@@ -23,12 +23,11 @@ $(document).ready(function () {
             var scheduleHour = parseInt($(this).attr("id").split("-"[1]));
 
             if (moment(currentTime).isAfter(scheduleHour, "hour")) {
-                $(this).removeClass("future"); 
-                $(this).removeClass("present");
+                $(this).removeClass("future present"); 
                 $(this).addClass("past");
             }
 
-            else if (currentTime === scheduleHour) {
+            else if (moment(currentTime).isSame(scheduleHour, "hour")) {
                 $(this).removeClass("past future");
                 $(this).addClass("present");
             }
